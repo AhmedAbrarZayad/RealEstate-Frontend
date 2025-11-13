@@ -1,15 +1,17 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+
+// API base URL
+const API_BASE_URL = 'http://localhost:3000';
 
 const Login = () => {
     const { login, signInWithGoogle } = useAuth();
     const navigate = useNavigate();
     const location = useLocation();
 
-    const [error, setError] = useState(null);
 
     async function handleLogin(e) {
         e.preventDefault();
@@ -19,21 +21,47 @@ const Login = () => {
             navigate(location.state?.from?.pathname || '/');
         } catch (err) {
             console.error('Login failed:', err);
-            setError(err.message || 'Login failed');
-            toast.error(`❌ ${error || 'Login failed. Please try again.'}`);
+            const message = err.message || 'Login failed. Please try again.';
+            toast.error(`❌ ${message}`);
         }
     }
 
-    async function handleGoogleSignIn(e) {
-        e.preventDefault();
+
+    // Handle Google sign-in
+    async function handleGoogleSignIn() {
         try {
-            await signInWithGoogle();
-            toast.success('🎉 Signed in with Google successfully!');
+            const result = await signInWithGoogle();
+            const user = result.user;
+            const token = await user.getIdToken();
+
+            const newUser = {
+                name: user.displayName,
+                email: user.email,
+                photoURL: user.photoURL,
+                properties: [],
+            };
+
+            const res = await fetch(`${API_BASE_URL}/users`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    Authorization: `Bearer ${token}`,
+                },
+                body: JSON.stringify(newUser),
+            });
+
+            const data = await res.json();
+
+            if (data.existingUser) {
+                toast.info('Welcome back!');
+            } else {
+                toast.success('Signed in with Google!');
+            }
+
             navigate(location.state?.from?.pathname || '/');
         } catch (err) {
             console.error('Google sign-in failed:', err);
-            setError(err.message || 'Google sign-in failed. Please try again.');
-            toast.error(`⚠️ ${err.message || 'Google sign-in failed. Please try again.'}`);
+            toast.error(err.message || 'Google sign-in failed');
         }
     }
 
