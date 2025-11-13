@@ -5,7 +5,7 @@ import HomeImage from '../assets/Home.jpg';
 import PropertiesImage from '../assets/Properties.jpg';
 import AddProperties from '../assets/AddProperties.jpg';
 import MyPropertiesImage from '../assets/MyProperties.jpg';
-
+import MyRatingsImage from '../assets/MyRatings.jpg';
 const NavBar = () => {
     const {currentUser, logout} = useAuth();
     const location = useLocation();
@@ -52,18 +52,27 @@ const NavBar = () => {
         >
             My Properties
         </NavLink>
+        <NavLink 
+            to="/my-ratings" 
+            className={({isActive}) => `bebas-neue-regular text-lg sm:text-xl md:text-2xl transition-all duration-200 ${isActive ? 'underline decoration-2 underline-offset-4' : 'hover:underline hover:underline-offset-4'}`}
+            onClick={handleLinkClick}
+        >
+            My Ratings
+        </NavLink>
     </>
     const backgroundImages = {
         '/': `url(${HomeImage})`,
         '/all-properties': `url(${PropertiesImage})`,
         '/add-property': `url(${AddProperties})`,
         '/my-properties': `url(${MyPropertiesImage})`,
+        '/my-ratings': `url(${MyRatingsImage})`,
     }
     const heroTexts = {
         '/': 'Find Your Dream Home',
         '/all-properties': 'Explore All Properties',
         '/add-property': 'List Your Property Today',
         '/my-properties': 'Your Properties',
+        '/my-ratings': 'Your Ratings & Reviews',
     }
     useEffect(() => {
         setNewBg(backgroundImages[location.pathname] || 'none');
@@ -101,7 +110,6 @@ const NavBar = () => {
                         <div className='hidden md:flex gap-4 lg:gap-8'>
                             {links}
                         </div>
-                        <h1 className='text-center momo-signature-regular md:text-4xl text-xl drop-shadow-lg'>RealEstate</h1>
                     </div>
 
                     {/* Login/Logout Button */}

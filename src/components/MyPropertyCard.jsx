@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth } from '../auth/useAuth';
+import { useNavigate } from 'react-router';
 
 export default function MyPropertyCard({ property, onPropertyUpdated, onPropertyDeleted }) {
   const { currentUser } = useAuth();
+  const navigate = useNavigate();
   const [showUpdateModal, setShowUpdateModal] = useState(false);
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -193,7 +195,7 @@ export default function MyPropertyCard({ property, onPropertyUpdated, onProperty
               </div>
 
               <div className="card-actions justify-between mt-4">
-                <button className="btn btn-primary btn-sm" onClick={() => console.log('View', property._id)}>View Details</button>
+                <button className="btn btn-primary btn-sm" onClick={() => navigate(`/property/${property._id}`)}>View Details</button>
                 <button className="btn btn-warning btn-sm" onClick={() => setShowUpdateModal(true)}>Update</button>
                 <button className="btn btn-error btn-sm" onClick={() => setShowDeleteModal(true)}>Delete</button>
               </div>

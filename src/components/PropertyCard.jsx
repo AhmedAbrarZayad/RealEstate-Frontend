@@ -1,9 +1,9 @@
 import React from 'react';
 // Assuming `useNavigate` from 'react-router-dom' is available for redirection
-// import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom'; 
 
 export default function PropertyCard({property}) {
-  // const navigate = useNavigate(); // Uncomment if you are using react-router-dom
+  const navigate = useNavigate(); // Uncomment if you are using react-router-dom
 
   // Helper function for price formatting (optional, but good practice)
   const formatPrice = (price) => {
@@ -21,7 +21,7 @@ export default function PropertyCard({property}) {
     // Implement your navigation logic here.
     // Example using react-router-dom:
     // navigate(`/property/${property._id}`);
-    
+    navigate(`/property/${property._id}`)
     // For demonstration, logging the action and required steps
     console.log(`Redirecting to details for property ID: ${property._id}`);
     console.log("NOTE: Full access requires login.");

@@ -9,6 +9,9 @@ import MyProperties from "../components/MyProperties";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 import PrivateRoute from "../components/PrivateRoute";
+import PropertyDetails from "../components/PropertyDetails";
+import MyRatings from "../components/MyRatings";
+import NotFound from "../components/NotFound";
 
 export const router = createBrowserRouter([
   {
@@ -30,6 +33,10 @@ export const router = createBrowserRouter([
       {
         path: "my-properties",
         element: <PrivateRoute><MyProperties /></PrivateRoute>
+      },
+      {
+        path: "my-ratings",
+        element: <PrivateRoute><MyRatings /></PrivateRoute>
       }
     ]
   },
@@ -40,6 +47,19 @@ export const router = createBrowserRouter([
   {
     path: "/signup",
     element: <AuthProvider><Signup /></AuthProvider>
+  },
+  {
+    path: '/property/:propertyId',
+    element: <AuthProvider><PrivateRoute><PropertyDetails /></PrivateRoute></AuthProvider>,
+    loader: async ({ params }) => {
+      const properties = await fetch(`http://localhost:3000/property/${params.propertyId}`).then(res => res.json());
+      const reviews = await fetch(`http://localhost:3000/reviews/${params.propertyId}`).then(res => res.json());
+      return { property: properties, reviews: reviews };
+    }
+  },
+  {
+    path: '*',
+    element: <NotFound />
   }
 ]);
 
