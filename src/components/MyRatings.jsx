@@ -103,7 +103,7 @@ const MyRatings = () => {
         };
 
         fetchPropertyDetails();
-    }, [reviews, currentUser, propertyDetails]);
+    }, [reviews, currentUser]);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -133,7 +133,7 @@ const MyRatings = () => {
             }
 
             // Refresh reviews after submission
-            const reviewsResponse = await fetch(`http://localhost:3000/reviews?email=${currentUser.email}`, {
+            const reviewsResponse = await fetch(`${API_BASE_URL}/reviews?email=${currentUser.email}`, {
                 headers: {
                     Authorization: `Bearer ${token}`,
                 },
