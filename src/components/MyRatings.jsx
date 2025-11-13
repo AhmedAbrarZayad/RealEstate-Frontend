@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../auth/useAuth';
+import { API_BASE } from '../config/api';
 
+const API_BASE_URL = API_BASE;
 const MyRatings = () => {
     const { currentUser } = useAuth();
     const [reviews, setReviews] = useState([]);
@@ -24,7 +26,7 @@ const MyRatings = () => {
                 const token = await currentUser.getIdToken();
 
                 // Fetch user's mongo ID
-                const userIdResponse = await fetch(`http://localhost:3000/users?email=${currentUser.email}`, {
+                const userIdResponse = await fetch(`${API_BASE_URL}/users?email=${currentUser.email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -36,7 +38,7 @@ const MyRatings = () => {
                 setUserMongoId(userIdData._id);
 
                 // Fetch user's reviews
-                const reviewsResponse = await fetch(`http://localhost:3000/reviews?email=${currentUser.email}`, {
+                const reviewsResponse = await fetch(`${API_BASE_URL}/reviews?email=${currentUser.email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -48,7 +50,7 @@ const MyRatings = () => {
                 setReviews(reviewsData);
 
                 // Fetch properties not owned by the user
-                const propertiesResponse = await fetch(`http://localhost:3000/not-my-properties?email=${currentUser.email}`, {
+                const propertiesResponse = await fetch(`${API_BASE_URL}/not-my-properties?email=${currentUser.email}`, {
                     headers: {
                         Authorization: `Bearer ${token}`,
                     },
@@ -80,7 +82,7 @@ const MyRatings = () => {
                 for (const review of reviews) {
                     const propId = review.propertyId;
                     if (!newDetails[propId]) {
-                        const response = await fetch(`http://localhost:3000/property/${propId}`, {
+                        const response = await fetch(`${API_BASE_URL}/property/${propId}`, {
                             headers: {
                                 Authorization: `Bearer ${token}`,
                             },
@@ -117,7 +119,7 @@ const MyRatings = () => {
                 reviewDate: new Date().toISOString(),
             };
 
-            const response = await fetch('http://localhost:3000/reviews', {
+            const response = await fetch(`${API_BASE_URL}/reviews`, {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',

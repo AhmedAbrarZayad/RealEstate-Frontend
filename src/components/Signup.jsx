@@ -3,8 +3,9 @@ import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE } from '../config/api';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = API_BASE;
 
 const Signup = () => {
     const navigate = useNavigate();

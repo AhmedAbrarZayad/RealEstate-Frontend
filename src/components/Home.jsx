@@ -7,7 +7,9 @@ import slide3 from '../assets/slide3.jpg';
 import PropertyCard from './PropertyCard';
 import ParticlesImage from '../assets/Particles.png';
 import WhyChooseUsImage from '../assets/WhyChooseUs.png';
+import { API_BASE } from '../config/api';
 
+const API_BASE_URL = API_BASE;
 const Home = () => {
     const [properties, setProperties] = useState([]);
     const slides = useMemo(() => [
@@ -32,7 +34,7 @@ const Home = () => {
     ], []);
 
     useEffect(() => {
-        fetch("http://localhost:3000/property?sortBy=price&order=desc")
+        fetch(`${API_BASE_URL}/property?sortBy=price&order=desc`)
         .then(res => res.json())
         .then(data => {
             data = data.slice(0, 6);

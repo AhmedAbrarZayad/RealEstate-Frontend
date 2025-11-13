@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { useAuth } from '../auth/useAuth';
 import MyPropertyCard from './MyPropertyCard';
+import { API_BASE } from '../config/api';
 
+const API_BASE_URL = API_BASE;
 const MyProperties = () => {
     const { currentUser } = useAuth();
     const [properties, setProperties] = useState([]);
@@ -10,7 +12,7 @@ const MyProperties = () => {
     useEffect(() => {
         const fetchProperties = async () => {
             try {
-                const res = await fetch('http://localhost:3000/my-properties?email=' + currentUser.email, {
+                const res = await fetch(`${API_BASE_URL}/my-properties?email=` + currentUser.email, {
                     headers: {
                         Authorization: `Bearer ${await currentUser.getIdToken()}`
                     }

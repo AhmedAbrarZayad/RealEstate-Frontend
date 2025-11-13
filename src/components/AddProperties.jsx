@@ -2,8 +2,9 @@ import React, { useState } from 'react';
 import WorldMap from '../assets/World Map.svg';
 import { useAuth } from '../auth/useAuth';
 import { toast } from 'react-toastify';
+import { API_BASE } from '../config/api';
 
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = API_BASE;
 
 const AddProperties = () => {
     const { currentUser } = useAuth();

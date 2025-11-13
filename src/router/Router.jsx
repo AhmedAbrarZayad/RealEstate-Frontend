@@ -12,7 +12,9 @@ import PrivateRoute from "../components/PrivateRoute";
 import PropertyDetails from "../components/PropertyDetails";
 import MyRatings from "../components/MyRatings";
 import NotFound from "../components/NotFound";
+import { API_BASE } from "../config/api";
 
+const API_BASE_URL = API_BASE;
 export const router = createBrowserRouter([
   {
     path: "/",
@@ -52,8 +54,8 @@ export const router = createBrowserRouter([
     path: '/property/:propertyId',
     element: <AuthProvider><PrivateRoute><PropertyDetails /></PrivateRoute></AuthProvider>,
     loader: async ({ params }) => {
-      const properties = await fetch(`http://localhost:3000/property/${params.propertyId}`).then(res => res.json());
-      const reviews = await fetch(`http://localhost:3000/reviews/${params.propertyId}`).then(res => res.json());
+      const properties = await fetch(`${API_BASE_URL}/property/${params.propertyId}`).then(res => res.json());
+      const reviews = await fetch(`${API_BASE_URL}/reviews/${params.propertyId}`).then(res => res.json());
       return { property: properties, reviews: reviews };
     }
   },

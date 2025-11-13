@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import PropertyCard from './PropertyCard';
+import { API_BASE } from '../config/api';
 
+const API_BASE_URL = API_BASE;
 const Properties = () => {
     const [properties, setProperties] = useState([]);
     const [loading, setLoading] = useState(true);
@@ -8,7 +10,7 @@ const Properties = () => {
     useEffect(() => {
         const fetchProperties = async () => {
             try {
-                const res = await fetch('http://localhost:3000/property');
+                const res = await fetch(`${API_BASE_URL}/property`);
                 const data = await res.json();
                 setProperties(data);
             } catch (err) {

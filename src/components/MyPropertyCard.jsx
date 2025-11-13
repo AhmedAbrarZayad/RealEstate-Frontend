@@ -1,7 +1,10 @@
 import React, { useState } from 'react';
 import { useAuth } from '../auth/useAuth';
 import { useNavigate } from 'react-router';
+import { API_BASE } from '../config/api';
 
+
+const API_BASE_URL = API_BASE;
 export default function MyPropertyCard({ property, onPropertyUpdated, onPropertyDeleted }) {
   const { currentUser } = useAuth();
   const navigate = useNavigate();
@@ -53,7 +56,7 @@ export default function MyPropertyCard({ property, onPropertyUpdated, onProperty
       };
 
       // Your API call here
-       await fetch(`http://localhost:3000/my-properties/${property._id}?email=${currentUser.email}`, {
+       await fetch(`${API_BASE_URL}/my-properties/${property._id}?email=${currentUser.email}`, {
          method: 'PATCH',
          headers: {
            'Content-Type': 'application/json',
@@ -82,7 +85,7 @@ export default function MyPropertyCard({ property, onPropertyUpdated, onProperty
     setIsDeleting(true);
     try {
       // Your API call here
-       await fetch(`http://localhost:3000/my-properties/${property._id}?email=${currentUser.email}`, {
+       await fetch(`${API_BASE_URL}/my-properties/${property._id}?email=${currentUser.email}`, {
          method: 'DELETE',
          headers: {
            'Authorization': `Bearer ${await currentUser.getIdToken()}`

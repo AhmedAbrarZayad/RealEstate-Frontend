@@ -3,9 +3,10 @@ import { NavLink, useNavigate, useLocation } from 'react-router-dom';
 import { useAuth } from '../auth/useAuth';
 import { toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import { API_BASE } from '../config/api';
 
 // API base URL
-const API_BASE_URL = 'http://localhost:3000';
+const API_BASE_URL = API_BASE;
 
 const Login = () => {
     const { login, signInWithGoogle } = useAuth();
