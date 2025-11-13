@@ -8,21 +8,21 @@ export function AuthProvider({children}) {
     const [currentUser, setCurrentUser] = useState(null);
     const [loading, setLoading] = useState(true);
 
-    function signup(email, password) {
-        return createUserWithEmailAndPassword(auth, email, password);
+    async function signup(email, password) {
+        return await createUserWithEmailAndPassword(auth, email, password);
     }
 
-    function login(email, password) {
-        return signInWithEmailAndPassword(auth, email, password);
+    async function login(email, password) {
+        return await signInWithEmailAndPassword(auth, email, password);
     }
 
-    function logout() {
-        return signOut(auth);
+    async function logout() {
+        return await signOut(auth);
     }
 
-    function signInWithGoogle() {
+    async function signInWithGoogle() {
         const provider = new GoogleAuthProvider();
-        return signInWithPopup(auth, provider);
+        return await signInWithPopup(auth, provider);
     }
 
     useEffect(() => {

@@ -8,6 +8,7 @@ import AddProperties from "../components/AddProperties";
 import MyProperties from "../components/MyProperties";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
+import PrivateRoute from "../components/PrivateRoute";
 
 export const router = createBrowserRouter([
   {
@@ -24,21 +25,21 @@ export const router = createBrowserRouter([
       },
       {
         path: "add-property",
-        element: <AddProperties />
+        element: <PrivateRoute><AddProperties /></PrivateRoute>
       },
       {
         path: "my-properties",
-        element: <MyProperties />
+        element: <PrivateRoute><MyProperties /></PrivateRoute>
       }
     ]
   },
   {
     path: "/login",
-    element: <Login />
+    element: <AuthProvider><Login /></AuthProvider>
   },
   {
     path: "/signup",
-    element: <Signup />
+    element: <AuthProvider><Signup /></AuthProvider>
   }
 ]);
 
