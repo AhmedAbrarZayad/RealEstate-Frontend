@@ -17,14 +17,12 @@ const Signup = () => {
     const [password, setPassword] = useState('');
     const [photoURL, setPhotoURL] = useState('');
 
-    // 🔥 password validation state
     const [passwordValidation, setPasswordValidation] = useState({
         hasUpper: false,
         hasLower: false,
         hasLength: false,
     });
 
-    // 🔥 handle live password validation
     function handlePasswordChange(e) {
         const value = e.target.value;
         setPassword(value);
@@ -47,7 +45,7 @@ const Signup = () => {
         }
 
         try {
-            const userCredential = await signup(email, password);
+            const userCredential = await signup(email, password, name, photoURL);
             const user = userCredential.user;
 
             const newUser = {
