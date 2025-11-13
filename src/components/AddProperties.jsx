@@ -336,7 +336,7 @@ const AddProperties = () => {
                         <div className="pt-6">
                             <button
                                 onClick={handleSubmit}
-                                className="w-full bg-gradient-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-blue-500/50 shadow-lg hover:shadow-blue-500/50 flex items-center justify-center space-x-2"
+                                className="w-full bg-linear-to-r from-blue-600 to-blue-500 hover:from-blue-700 hover:to-blue-600 text-white font-bold py-4 px-6 rounded-lg transition-all duration-300 transform hover:scale-[1.02] focus:outline-none focus:ring-4 focus:ring-blue-500/50 shadow-lg hover:shadow-blue-500/50 flex items-center justify-center space-x-2"
                             >
                                 <svg
                                     className="w-6 h-6"
