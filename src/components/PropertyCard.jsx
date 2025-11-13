@@ -43,7 +43,9 @@ export default function PropertyCard({property}) {
           background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.4));
           transition: transform 0.6s ease, opacity 0.6s ease;
           opacity: 0;
+          pointer-events: none;
         }
+
         
         .hover-3d:hover {
           transform: rotateY(10deg) rotateX(5deg) scale(1.02);
