@@ -1,12 +1,19 @@
-# RealEstate - Frontend
+## 🏠 Real Estate — Property Listing Web Application
+**Nov 2025**
 
-This is the frontend for RealEstate Website
+A full-stack real estate platform built with the **MERN stack**, enabling users to browse, search, and list properties for sale. The application connects property buyers and real estate agents by offering detailed listings and an intuitive user experience.
 
-Live Link: https://neon-cendol-9e4ab4.netlify.app/
+### ✨ Key Features
+- 🏡 Property listings with detailed information  
+- 🔍 Search and filter functionality for quick property discovery  
+- ➕ Add and list properties for sale  
+- ⭐ Property rating system to increase engagement and trust  
+- 📱 Responsive design for all screen sizes  
 
-Features:
-1. Add Reviews
-2. Add Property
-3. Search Property
-4. Authentication
-5. Find my reviews
+### 🛠️ Tech Stack
+- **Frontend:** React.js  
+- **Backend:** Node.js, Express.js  
+- **Database:** MongoDB  
+
+### 🌐 Live Demo
+🔗 https://neon-cendol-9e4ab4.netlify.app/
