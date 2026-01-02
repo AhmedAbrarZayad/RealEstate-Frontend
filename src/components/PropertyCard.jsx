@@ -1,203 +1,122 @@
 import React from 'react';
-// Assuming `useNavigate` from 'react-router-dom' is available for redirection
-import { useNavigate } from 'react-router-dom'; 
+import { useNavigate } from 'react-router-dom';
+import { FiMapPin, FiDollarSign, FiHome, FiCalendar } from 'react-icons/fi';
+import { motion } from 'framer-motion';
 
-export default function PropertyCard({property}) {
-  const navigate = useNavigate(); // Uncomment if you are using react-router-dom
+export default function PropertyCard({ property }) {
+    const navigate = useNavigate();
 
-  // Helper function for price formatting (optional, but good practice)
-  const formatPrice = (price) => {
-    // Assuming 'price' is a number. Format to currency (e.g., $1,200)
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
-      minimumFractionDigits: 0,
-      maximumFractionDigits: 0,
-    }).format(price);
-  };
-    
-  // Function to handle "View Details" click
-  const handleViewDetails = () => {
-    // Implement your navigation logic here.
-    // Example using react-router-dom:
-    // navigate(`/property/${property._id}`);
-    navigate(`/property/${property._id}`)
-    // For demonstration, logging the action and required steps
-    console.log(`Redirecting to details for property ID: ${property._id}`);
-    console.log("NOTE: Full access requires login.");
-  };
+    const formatPrice = (price) => {
+        return new Intl.NumberFormat('en-US', {
+            style: 'currency',
+            currency: 'USD',
+            minimumFractionDigits: 0,
+            maximumFractionDigits: 0,
+        }).format(price);
+    };
 
-  return (
-    <div className="min-h-screen flex items-center justify-center p-8">
-      <style>{`
-        .hover-3d {
-          position: relative;
-          transform-style: preserve-3d;
-          transition: transform 0.6s ease;
-        }
-        
-        .hover-3d > div:not(:first-child) {
-          position: absolute;
-          inset: 0;
-          border-radius: 1rem;
-          background: linear-gradient(135deg, rgba(168, 85, 247, 0.4), rgba(236, 72, 153, 0.4));
-          transition: transform 0.6s ease, opacity 0.6s ease;
-          opacity: 0;
-          pointer-events: none;
-        }
+    const formatDate = (dateStr) => {
+        return new Date(dateStr).toLocaleDateString('en-US', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric'
+        });
+    };
 
-        
-        .hover-3d:hover {
-          transform: rotateY(10deg) rotateX(5deg) scale(1.02);
-        }
-        
-        .hover-3d:hover > div:nth-child(2) {
-          transform: translateZ(-10px);
-          opacity: 0.3;
-        }
-        
-        .hover-3d:hover > div:nth-child(3) {
-          transform: translateZ(-20px);
-          opacity: 0.25;
-        }
-        
-        .hover-3d:hover > div:nth-child(4) {
-          transform: translateZ(-30px);
-          opacity: 0.2;
-        }
-        
-        .hover-3d:hover > div:nth-child(5) {
-          transform: translateZ(-40px);
-          opacity: 0.15;
-        }
-        
-        .hover-3d:hover > div:nth-child(6) {
-          transform: translateZ(-50px);
-          opacity: 0.1;
-        }
-        
-        .hover-3d:hover > div:nth-child(7) {
-          transform: translateZ(-60px);
-          opacity: 0.08;
-        }
-        
-        .hover-3d:hover > div:nth-child(8) {
-          transform: translateZ(-70px);
-          opacity: 0.05;
-        }
-        
-        .hover-3d:hover > div:nth-child(9) {
-          transform: translateZ(-80px);
-          opacity: 0.03;
-        }
-      `}</style>
-      
-      <div className="hover-3d">
-        <div className="card w-96 bg-base-100 shadow-2xl overflow-hidden">
-          <figure className="relative h-56">
-            <img 
-              src={property.imageLink} 
-              alt={property.name}
-              className="w-full h-full object-cover"
-            />
-            {/* O Category */}
-            <div className="badge badge-primary absolute top-4 right-4 font-semibold">
-              {property.category}
-            </div>
-          </figure>
-          
-          <div className="card-body">
-            {/* O Property Name */}
-            <h2 className="card-title text-2xl font-bold">
-              {property.name}
-            </h2>
-            
-            {/* O Short Description */}
-            <p className="text-sm text-base-content opacity-70 mb-2">
-              {property.description}
-            </p>
-            
-            <div className="divider my-2"></div>
-            
-            <div className="space-y-2">
-              {/* O Location (City & Area) */}
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-                <span className="text-sm">
-                  {/* Accessing location object: property.location.area, property.location.city */}
-                  {property.location.area}, {property.location.city}
-                </span>
-              </div>
-              
-              {/* O Location (Address - optional detail) */}
-              <div className="flex items-center gap-2">
-                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
-                </svg>
-                {/* Accessing location object: property.location.address */}
-                <span className="text-sm">{property.location.address}</span>
-              </div>
-            </div>
-            
-            <div className="divider my-2"></div>
-            
-            <div className="flex items-center justify-between">
-              <div>
-                <p className="text-xs text-base-content opacity-60">Price</p>
-                {/* O Property Price */}
-                <p className="text-3xl font-bold text-primary">
-                  {/* Using the formatPrice helper (or just ${property.price} if preferred) */}
-                  {formatPrice(property.price)}
-                  <span className="text-sm font-normal text-base-content opacity-60">
-                    {/* Displaying /month if category is Rent */}
-                    {property.category === "Rent" ? '/month' : ''}
-                  </span>
-                </p>
-              </div>
-              
-              {/* This section displays the User/Owner's initials and info (not explicitly requested but already in code) */}
-              <div className="avatar placeholder">
-                <div className="bg-primary text-primary-content rounded-full w-12">
-                  <span className="text-lg font-semibold">
-                    {/* Accessing user object: property.user.name */}
-                    {property.user.name.split(' ').map(n => n[0]).join('')}
-                  </span>
+    const handleViewDetails = () => {
+        navigate(`/property/${property._id}`);
+    };
+
+    return (
+        <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5 }}
+            className="group"
+        >
+            <div className="bg-white dark:bg-gray-800 rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2 h-full flex flex-col border border-gray-200 dark:border-gray-700">
+                {/* Image Section */}
+                <div className="relative h-64 overflow-hidden">
+                    <img
+                        src={property.imageLink}
+                        alt={property.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                    />
+                    {/* Category Badge */}
+                    <div className="absolute top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg">
+                        {property.category}
+                    </div>
+                    {/* Posted Date */}
+                    <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm px-3 py-2 rounded-lg flex items-center space-x-2">
+                        <FiCalendar className="w-4 h-4 text-gray-600 dark:text-gray-400" />
+                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
+                            {formatDate(property.postedDate)}
+                        </span>
+                    </div>
                 </div>
-              </div>
+
+                {/* Content Section */}
+                <div className="p-6 flex flex-col flex-grow">
+                    {/* Property Name */}
+                    <h3 className="text-xl font-bold text-gray-900 dark:text-white mb-3 line-clamp-2 group-hover:text-blue-600 dark:group-hover:text-blue-400 transition-colors">
+                        {property.name}
+                    </h3>
+
+                    {/* Description */}
+                    <p className="text-gray-600 dark:text-gray-400 text-sm mb-4 line-clamp-2 flex-grow">
+                        {property.description}
+                    </p>
+
+                    {/* Location */}
+                    <div className="flex items-start space-x-2 mb-4 text-gray-700 dark:text-gray-300">
+                        <FiMapPin className="w-5 h-5 text-blue-600 flex-shrink-0 mt-0.5" />
+                        <div className="text-sm">
+                            <p className="font-semibold">{property.location.area}, {property.location.city}</p>
+                            <p className="text-xs text-gray-500 dark:text-gray-500">{property.location.address}</p>
+                        </div>
+                    </div>
+
+                    {/* Divider */}
+                    <div className="border-t border-gray-200 dark:border-gray-700 my-4"></div>
+
+                    {/* Price and Owner Section */}
+                    <div className="flex items-center justify-between mb-4">
+                        {/* Price */}
+                        <div>
+                            <p className="text-xs text-gray-500 dark:text-gray-500 mb-1">Price</p>
+                            <div className="flex items-baseline space-x-1">
+                                <span className="text-2xl font-bold text-blue-600 dark:text-blue-400">
+                                    {formatPrice(property.price)}
+                                </span>
+                                {property.category === 'Rent' && (
+                                    <span className="text-sm text-gray-500 dark:text-gray-500">/month</span>
+                                )}
+                            </div>
+                        </div>
+
+                        {/* Owner Avatar */}
+                        <div className="flex items-center space-x-2">
+                            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-blue-600 to-purple-600 flex items-center justify-center text-white font-semibold shadow-md">
+                                {property.user.name.split(' ').map(n => n[0]).join('').toUpperCase()}
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* Owner Info */}
+                    <div className="text-right mb-4">
+                        <p className="text-sm font-semibold text-gray-900 dark:text-white">{property.user.name}</p>
+                        <p className="text-xs text-gray-500 dark:text-gray-500">{property.user.email}</p>
+                    </div>
+
+                    {/* View Details Button */}
+                    <button
+                        onClick={handleViewDetails}
+                        className="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-3 px-6 rounded-lg transition-all duration-200 transform hover:scale-105 active:scale-95 shadow-md hover:shadow-lg"
+                    >
+                        View Details
+                    </button>
+                </div>
             </div>
-            
-            <div className="text-right mt-2">
-              <p className="text-xs font-semibold">{property.user.name}</p>
-              <p className="text-xs text-base-content opacity-60">{property.user.email}</p>
-            </div>
-            
-            {/* O "View Details" button (redirects to property details, login required for full access) */}
-            <div className="card-actions justify-end mt-4">
-              <button 
-                className="btn btn-primary btn-block"
-                onClick={handleViewDetails} // Add the click handler
-                title="Login required for full access" // Hint about login requirement
-              >
-                View Details
-              </button>
-            </div>
-          </div>
-        </div>
-        
-        {/* These divs create the 3D effect layers */}
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-        <div></div>
-      </div>
-    </div>
-  );
+        </motion.div>
+    );
 }

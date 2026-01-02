@@ -12,6 +12,10 @@ import PrivateRoute from "../components/PrivateRoute";
 import PropertyDetails from "../components/PropertyDetails";
 import MyRatings from "../components/MyRatings";
 import NotFound from "../components/NotFound";
+import About from "../components/About";
+import Contact from "../components/Contact";
+import Profile from "../components/Profile";
+import Dashboard from "../components/Dashboard";
 import { API_BASE } from "../config/api";
 
 const API_BASE_URL = API_BASE;
@@ -29,6 +33,14 @@ export const router = createBrowserRouter([
         element: <Properties />
       },
       {
+        path: "about",
+        element: <About />
+      },
+      {
+        path: "contact",
+        element: <Contact />
+      },
+      {
         path: "add-property",
         element: <PrivateRoute><AddProperties /></PrivateRoute>
       },
@@ -39,6 +51,14 @@ export const router = createBrowserRouter([
       {
         path: "my-ratings",
         element: <PrivateRoute><MyRatings /></PrivateRoute>
+      },
+      {
+        path: "profile",
+        element: <PrivateRoute><Profile /></PrivateRoute>
+      },
+      {
+        path: "dashboard",
+        element: <PrivateRoute><Dashboard /></PrivateRoute>
       }
     ]
   },
