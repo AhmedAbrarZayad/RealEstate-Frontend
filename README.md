@@ -283,7 +283,31 @@ Assignment/
 - Review oversight
 - System statistics
 
-## 🚀 Deployment
+## � Screenshots
+
+### Home Page
+![Home Page](screenshots/home.png)
+*Modern hero section with property search functionality*
+
+### Property Listings
+![Properties](screenshots/properties.png)
+*Browse all properties with search and filter options*
+
+### User Dashboard
+![Dashboard](screenshots/dashboard.png)
+*Analytics dashboard with charts and statistics*
+
+### Admin Panel
+![Admin Panel](screenshots/admin.png)
+*Comprehensive admin controls for platform management*
+
+### Property Details
+![Property Details](screenshots/property-details.png)
+*Detailed property view with reviews and ratings*
+
+> **Note:** To add screenshots, create a `screenshots` folder in the RealEstate directory and add your images there, or place them in the root and update the paths accordingly.
+
+## �🚀 Deployment
 
 ### Frontend (Netlify)
 1. Build: `npm run build`
