@@ -9,6 +9,7 @@ import MyProperties from "../components/MyProperties";
 import Login from "../components/Login";
 import Signup from "../components/Signup";
 import PrivateRoute from "../components/PrivateRoute";
+import AdminRoute from "../components/AdminRoute";
 import PropertyDetails from "../components/PropertyDetails";
 import MyRatings from "../components/MyRatings";
 import NotFound from "../components/NotFound";
@@ -16,6 +17,7 @@ import About from "../components/About";
 import Contact from "../components/Contact";
 import Profile from "../components/Profile";
 import Dashboard from "../components/Dashboard";
+import AdminPanel from "../components/AdminPanel";
 import { API_BASE } from "../config/api";
 
 const API_BASE_URL = API_BASE;
@@ -59,6 +61,10 @@ export const router = createBrowserRouter([
       {
         path: "dashboard",
         element: <PrivateRoute><Dashboard /></PrivateRoute>
+      },
+      {
+        path: "admin",
+        element: <PrivateRoute><AdminRoute><AdminPanel /></AdminRoute></PrivateRoute>
       }
     ]
   },

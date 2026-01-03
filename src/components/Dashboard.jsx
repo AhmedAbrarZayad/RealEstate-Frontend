@@ -1,14 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../auth/useAuth';
-import { FiHome, FiDollarSign, FiEye, FiStar, FiTrendingUp, FiUsers } from 'react-icons/fi';
+import { FiHome, FiDollarSign, FiEye, FiStar, FiTrendingUp, FiUsers, FiShield } from 'react-icons/fi';
 import { BarChart, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, LineChart, Line, PieChart, Pie, Cell } from 'recharts';
 import { API_BASE } from '../config/api';
+import { Link } from 'react-router-dom';
 
 const API_BASE_URL = API_BASE;
 
 const Dashboard = () => {
-    const { currentUser } = useAuth();
+    const { currentUser, userRole } = useAuth();
     const [stats, setStats] = useState({
         totalProperties: 0,
         totalValue: 0,
@@ -123,12 +124,40 @@ const Dashboard = () => {
                     transition={{ duration: 0.6 }}
                     className="mb-8"
                 >
-                    <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
-                        Dashboard
-                    </h1>
-                    <p className="text-xl text-gray-600 dark:text-gray-400">
-                        Welcome back, {currentUser.displayName || 'User'}!
-                    </p>
+                    <div className="flex items-center justify-between flex-wrap gap-4">
+                        <div>
+                            <h1 className="text-4xl md:text-5xl font-bold text-gray-900 dark:text-white mb-2">
+                                Dashboard
+                            </h1>
+                            <p className="text-xl text-gray-600 dark:text-gray-400">
+                                Welcome back, {currentUser.displayName || 'User'}!
+                            </p>
+                        </div>
+                        {userRole === 'admin' && (
+                            <Link
+                                to="/admin"
+                                className="flex items-center space-x-2 px-6 py-3 bg-gradient-to-r from-purple-600 to-blue-600 text-white rounded-lg font-semibold hover:shadow-lg transform hover:scale-105 transition-all duration-200"
+                            >
+                                <FiShield className="w-5 h-5" />
+                                <span>Admin Panel</span>
+                            </Link>
+                        )}
+                    </div>
+                    {userRole === 'admin' && (
+                        <motion.div
+                            initial={{ opacity: 0, y: -10 }}
+                            animate={{ opacity: 1, y: 0 }}
+                            transition={{ delay: 0.3 }}
+                            className="mt-4 p-4 bg-gradient-to-r from-purple-100 to-blue-100 dark:from-purple-900/20 dark:to-blue-900/20 border border-purple-200 dark:border-purple-800 rounded-lg"
+                        >
+                            <div className="flex items-center space-x-3">
+                                <FiShield className="w-5 h-5 text-purple-600 dark:text-purple-400" />
+                                <p className="text-purple-900 dark:text-purple-200 font-medium">
+                                    You have administrator privileges. Access the Admin Panel for full system management.
+                                </p>
+                            </div>
+                        </motion.div>
+                    )}
                 </motion.div>
 
                 {/* Stat Cards */}

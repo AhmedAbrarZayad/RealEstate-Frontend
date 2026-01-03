@@ -1,11 +1,11 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useAuth } from '../auth/useAuth';
-import { FiEdit2, FiSave, FiX, FiUser, FiMail, FiPhone, FiMapPin, FiCalendar } from 'react-icons/fi';
+import { FiEdit2, FiSave, FiX, FiUser, FiMail, FiPhone, FiMapPin, FiCalendar, FiShield } from 'react-icons/fi';
 import { toast, ToastContainer } from 'react-toastify';
 
 const Profile = () => {
-    const { currentUser } = useAuth();
+    const { currentUser, userRole } = useAuth();
     const [isEditing, setIsEditing] = useState(false);
     const [formData, setFormData] = useState({
         displayName: currentUser?.displayName || '',
@@ -122,6 +122,19 @@ const Profile = () => {
                                         <div>
                                             <p className="text-xs text-gray-500 dark:text-gray-500">Account Status</p>
                                             <p className="text-sm font-semibold text-green-600">Active</p>
+                                        </div>
+                                    </div>
+                                    <div className="flex items-center space-x-3 text-gray-600 dark:text-gray-400">
+                                        <FiShield className="w-5 h-5" />
+                                        <div>
+                                            <p className="text-xs text-gray-500 dark:text-gray-500">Role</p>
+                                            <p className={`text-sm font-semibold ${
+                                                userRole === 'admin' 
+                                                    ? 'text-purple-600 dark:text-purple-400' 
+                                                    : 'text-blue-600 dark:text-blue-400'
+                                            }`}>
+                                                {userRole === 'admin' ? 'Administrator' : 'User'}
+                                            </p>
                                         </div>
                                     </div>
                                 </div>

@@ -46,13 +46,6 @@ export default function PropertyCard({ property }) {
                     <div className="absolute top-4 right-4 bg-blue-600 text-white px-4 py-2 rounded-full font-semibold text-sm shadow-lg">
                         {property.category}
                     </div>
-                    {/* Posted Date */}
-                    <div className="absolute bottom-4 left-4 bg-white/90 dark:bg-gray-900/90 backdrop-blur-sm px-3 py-2 rounded-lg flex items-center space-x-2">
-                        <FiCalendar className="w-4 h-4 text-gray-600 dark:text-gray-400" />
-                        <span className="text-xs font-medium text-gray-700 dark:text-gray-300">
-                            {formatDate(property.postedDate)}
-                        </span>
-                    </div>
                 </div>
 
                 {/* Content Section */}

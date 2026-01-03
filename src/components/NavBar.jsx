@@ -4,7 +4,7 @@ import { useAuth } from '../auth/useAuth';
 import { useTheme } from '../context/ThemeContext';
 import { Menu, Transition } from '@headlessui/react';
 import { Fragment } from 'react';
-import { FiSun, FiMoon, FiMenu, FiX, FiUser, FiLogOut, FiHome, FiGrid, FiPlusCircle, FiList, FiStar, FiSettings, FiBarChart2 } from 'react-icons/fi';
+import { FiSun, FiMoon, FiMenu, FiX, FiUser, FiLogOut, FiHome, FiGrid, FiPlusCircle, FiList, FiStar, FiSettings, FiBarChart2, FiShield } from 'react-icons/fi';
 import HomeImage from '../assets/Home.jpg';
 import PropertiesImage from '../assets/Properties.jpg';
 import AddProperties from '../assets/AddProperties.jpg';
@@ -12,7 +12,7 @@ import MyPropertiesImage from '../assets/MyProperties.jpg';
 import MyRatingsImage from '../assets/MyRatings.jpg';
 
 const NavBar = () => {
-    const { currentUser, logout } = useAuth();
+    const { currentUser, userRole, logout } = useAuth();
     const { isDark, toggleTheme } = useTheme();
     const location = useLocation();
     const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -52,7 +52,12 @@ const NavBar = () => {
         { to: '/dashboard', label: 'Dashboard', icon: <FiBarChart2 /> },
     ] : [];
 
-    const allLinks = [...publicLinks, ...protectedLinks];
+    // Add admin link if user is admin
+    const adminLinks = currentUser && userRole === 'admin' ? [
+        { to: '/admin', label: 'Admin Panel', icon: <FiShield /> },
+    ] : [];
+
+    const allLinks = [...publicLinks, ...protectedLinks, ...adminLinks];
 
     const backgroundImages = {
         '/': `url(${HomeImage})`,
@@ -80,7 +85,8 @@ const NavBar = () => {
                      location.pathname.includes('/dashboard') || 
                      location.pathname.includes('/profile') ||
                      location.pathname.includes('/about') ||
-                     location.pathname.includes('/contact');
+                     location.pathname.includes('/contact') ||
+                     location.pathname.includes('/admin');
 
     return (
         <div 
@@ -259,6 +265,25 @@ const NavBar = () => {
                                                         </button>
                                                     )}
                                                 </Menu.Item>
+                                                {userRole === 'admin' && (
+                                                    <>
+                                                        <div className="border-t border-gray-200 dark:border-gray-700 my-1"></div>
+                                                        <Menu.Item>
+                                                            {({ active }) => (
+                                                                <NavLink
+                                                                    to="/admin"
+                                                                    onClick={handleLinkClick}
+                                                                    className={`${
+                                                                        active ? 'bg-gray-100 dark:bg-gray-700' : ''
+                                                                    } flex items-center space-x-3 px-4 py-2 text-blue-600 dark:text-blue-400 rounded-md transition-colors font-semibold`}
+                                                                >
+                                                                    <FiShield />
+                                                                    <span>Admin Panel</span>
+                                                                </NavLink>
+                                                            )}
+                                                        </Menu.Item>
+                                                    </>
+                                                )}
                                             </div>
                                         </Menu.Items>
                                     </Transition>
